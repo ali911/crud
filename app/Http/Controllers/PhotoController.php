@@ -17,7 +17,6 @@ class PhotoController extends Controller
         $photos = Photo::get();
         return view("welcome", get_defined_vars());
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +26,6 @@ class PhotoController extends Controller
     {
         return view("photos.create");
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -42,7 +40,6 @@ class PhotoController extends Controller
         ]);
         return redirect("/");
     }
-
     /**
      * Display the specified resource.
      *

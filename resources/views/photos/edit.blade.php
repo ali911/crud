@@ -10,17 +10,9 @@
     {{-- {{ $photo }} --}}
     <h2><a href="/">Photos</a></h2>
 
-    {{-- <form method="POST" action="photos/{{ $photo->id }}">
-        @csrf
-        @method('PATCH')
-        <input type="text" name="name" placeholder="Add photo" value="{{ $photo->name }}" />
-        <button>Submit</button>
-    </form> --}}
-
     <form method="POST" action="/photos/{{ $photo->id }}">
         @csrf
         @method('PATCH')
-    
         <input type="text" name="name" value="{{ $photo->name }}">
         <button>Submit</button>
     </form>
