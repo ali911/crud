@@ -8,18 +8,22 @@
 </head>
 <body>
     <h1><a href="/photos">Photos</a></h1>
-    <form method="POST" action="/photos">
+
+    <form method="POST" action="/photos" enctype="multipart/form-data">
         @csrf
+
         <input type="text" name="name" placeholder="Add photo" value="{{ old('name') }}" />
+        <input type="file" name="file" />
         @if ($errors->any())
-    <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <button>Submit</button>
     </form>
 </body>

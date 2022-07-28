@@ -16,8 +16,10 @@ class PhotoController extends Controller
     public function index()
     {
         $photos = Photo::get();
+
         return view("welcome", get_defined_vars());
     }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -27,6 +29,7 @@ class PhotoController extends Controller
     {
         return view("photos.create");
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,15 +38,27 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
+        // $request->dd();
         $request->validate([
             'name' => 'required|max:25|unique:photos',
+            'file' => 'nullable',
         ]);
-        //return $request;
+
+        if ($request->file) {
+            $path = $request->file->store('files');
+        } else {
+            $path = "";
+        }
+        // info($path);
+
         Photo::create([
-            "name" => $request->name
+            "name" => $request->name,
+            "file" => $path
         ]);
+
         return redirect("/photos");
     }
+
     /**
      * Display the specified resource.
      *
@@ -75,17 +90,18 @@ class PhotoController extends Controller
      */
     public function update(Request $request, Photo $photo)
     {
-        // return $request;
         $request->validate([
             'name' => [
                 'required',
                 'max:25',
-            Rule::unique('photos')->ignore($photo->id),
+                Rule::unique('photos')->ignore($photo->id),
             ],
         ]);
+
         $photo->update([
             "name" => $request->name
         ]);
+
         return redirect("/photos");
     }
 
@@ -98,6 +114,7 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
+
         return redirect("/photos");
     }
 }
