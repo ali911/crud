@@ -7,9 +7,19 @@
     <title>Create Photo</title>
 </head>
 <body>
+    <h1><a href="/photos">Photos</a></h1>
     <form method="POST" action="/photos">
         @csrf
-        <input type="text" name="name" placeholder="Add photo" />
+        <input type="text" name="name" placeholder="Add photo" value="{{ old('name') }}" />
+        @if ($errors->any())
+    <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <button>Submit</button>
     </form>
 </body>

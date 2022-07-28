@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PhotoController extends Controller
 {
@@ -34,11 +35,14 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:25|unique:photos',
+        ]);
         //return $request;
         Photo::create([
             "name" => $request->name
         ]);
-        return redirect("/");
+        return redirect("/photos");
     }
     /**
      * Display the specified resource.
@@ -72,11 +76,17 @@ class PhotoController extends Controller
     public function update(Request $request, Photo $photo)
     {
         // return $request;
-
+        $request->validate([
+            'name' => [
+                'required',
+                'max:25',
+            Rule::unique('photos')->ignore($photo->id),
+            ],
+        ]);
         $photo->update([
             "name" => $request->name
         ]);
-        return redirect("/");
+        return redirect("/photos");
     }
 
     /**
@@ -88,6 +98,6 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
-        return redirect("/");
+        return redirect("/photos");
     }
 }

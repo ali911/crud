@@ -17,13 +17,13 @@ use App\Http\Controllers\PhotoController;
 //     return view('welcome');
 // });
 
-
+Route::resource('photos', PhotoController::class);
 //
 
-Route::get('/', [PhotoController::class, 'index']);
-Route::get('photos/create', [PhotoController::class, 'create']);
-Route::post('photos', [PhotoController::class, 'store']);
-Route::get('photos/{photo}', [PhotoController::class, 'show']);
-Route::get('photos/{photo}/edit', [PhotoController::class, 'edit']);
-Route::PATCH('photos/{photo}', [PhotoController::class, 'update']);
-Route::delete('photos/{photo}', [PhotoController::class, 'destroy']);
+// Route::get('/', [PhotoController::class, 'index']);
+// Route::get('photos/create', [PhotoController::class, 'create']);
+// Route::post('photos', [PhotoController::class, 'store']);
+// Route::get('photos/{photo}', [PhotoController::class, 'show']);
+// Route::get('photos/{photo}/edit', [PhotoController::class, 'edit']);
+// Route::patch('photos/{photo}', [PhotoController::class, 'update']);
+// Route::delete('photos/{photo}', [PhotoController::class, 'destroy']);
